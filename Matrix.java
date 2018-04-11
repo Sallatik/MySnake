@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import javax.swing.*;
 class Matrix extends JPanel{ 
 		
@@ -44,6 +47,7 @@ class Matrix extends JPanel{
 
 		background = BACKGROUND_DEFAULT;
 		color = COLOR_DEFAULT;
+		
 	}
 
 	public void paintComponent ( Graphics g ) {
@@ -135,6 +139,8 @@ class Matrix extends JPanel{
 			return new Cell(x,y);
 		}
 	}
+	
+
 }
 	
 	

@@ -1,7 +1,7 @@
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.*;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import gui.*;
 
 enum Direction {    
 	
@@ -17,6 +17,7 @@ enum Direction {
 	public boolean sign(){
 		return sign;
 	}
+	
 	private boolean isVertical;
 	public boolean isVertical(){
 		return isVertical; 
@@ -29,18 +30,20 @@ enum Direction {
 
 class SnakeGame {
 	
-	public static final String VERSION = "1.2.0";
-	
+	public static final String VERSION = "2.0";
+	public static final int FPS = 25;
 	public static final int TICK = 100;
 	
 	private Matrix matrix;	 
 	private Set<Entity> entities;
 	private Snake snake;
-
-	private JFrame frame;
+	
 				
 	public Matrix getMatrix() {
 		return matrix;
+	}
+	public Snake getSnake() { // DELETE!!! 
+		return snake;
 	}
 	public Set<Entity> getEntities() {
 		return entities;
@@ -60,7 +63,6 @@ class SnakeGame {
 
 		snake = new Snake(this, 5,5,1,Direction.NORTH);
 		new Food(this);
-		frame.setVisible(true);
 
 	}
 	
@@ -68,7 +70,6 @@ class SnakeGame {
 		while (snake.getIsAlive()) {
 
 			snake.update();
-			frame.repaint();
 			try { Thread.sleep(TICK); } catch (Exception ex) {}
 		}
 
@@ -76,19 +77,13 @@ class SnakeGame {
 
 	private SnakeGame() {	// a private constructor
 		
-		matrix = new Matrix(this, 20,10);	
+		matrix = new Matrix(this, 20,20);	
+		matrix.addKeyListener(new Listener());
 		entities = new HashSet<Entity>();
-
-		frame = new JFrame("Snake alpha " + VERSION);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.addKeyListener(new Listener());
 		
-		frame.getContentPane().add( BorderLayout.CENTER, matrix );
-		
-		frame.setSize(600,300);
-		frame.setLocation(600,300);
-		
-		
+		GameWindow window = new GameWindow(600,600,"Snake alpha ".concat(VERSION));
+		window.setUpdater(new Updater(FPS));
+		window.setJPanel(matrix);
 		
 	}
 	
@@ -97,8 +92,7 @@ class SnakeGame {
 		game.setup();
 		game.gameCycle();	
 	}
-	
-	private class Listener extends KeyAdapter {
+	private class Listener extends KeyAdapter { // !!! Matrix should not have control over the snake
 		
 		public void keyPressed(KeyEvent k) {
 			int key = k.getKeyCode();
