@@ -92,7 +92,7 @@ class SnakeGame {
 		game.setup();
 		game.gameCycle();	
 	}
-	private class Listener extends KeyAdapter { // !!! Matrix should not have control over the snake
+	private class Listener extends KeyAdapter { 
 		
 		public void keyPressed(KeyEvent k) {
 			int key = k.getKeyCode();
