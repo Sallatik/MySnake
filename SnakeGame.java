@@ -42,12 +42,11 @@ class SnakeGame {
 	public Matrix getMatrix() {
 		return matrix;
 	}
-	public Snake getSnake() { // DELETE!!! 
-		return snake;
-	}
+	
 	public Set<Entity> getEntities() {
 		return entities;
 	}
+	
 	public Entity checkCollision(Matrix.Cell cell) {
 		
 		for (Entity entity : entities) {
@@ -78,7 +77,14 @@ class SnakeGame {
 	private SnakeGame() {	// a private constructor
 		
 		matrix = new Matrix(this, 20,20);	
-		matrix.addKeyListener(new Listener());
+		
+		Map<Integer,Direction> snakeBindings = new HashMap<Integer,Direction>();
+		snakeBindings.put(KeyEvent.VK_UP,Direction.NORTH);
+		snakeBindings.put(KeyEvent.VK_DOWN,Direction.SOUTH);
+		snakeBindings.put(KeyEvent.VK_RIGHT,Direction.EAST);
+		snakeBindings.put(KeyEvent.VK_LEFT,Direction.WEST);
+		
+		matrix.addKeyListener(new Listener(snakeBindings));
 		entities = new HashSet<Entity>();
 		
 		GameWindow window = new GameWindow(600,600,"Snake alpha ".concat(VERSION));
@@ -92,23 +98,21 @@ class SnakeGame {
 		game.setup();
 		game.gameCycle();	
 	}
-	private class Listener extends KeyAdapter { 
+	
+	private class Listener extends KeyAdapter { // !!! Matrix should not have control over the snake
+		private Map<Integer,Direction> snakeBindings;
 		
 		public void keyPressed(KeyEvent k) {
 			int key = k.getKeyCode();
 			Direction direction;
-			if ( key == KeyEvent.VK_UP) {
-				direction = Direction.NORTH;
-			} else if (key == KeyEvent.VK_DOWN) {
-				direction = Direction.SOUTH;
-			} else if (key == KeyEvent.VK_RIGHT) {
-				direction = Direction.EAST;
-			} else if (key == KeyEvent.VK_LEFT) {
-				direction = Direction.WEST;
-			} else return;
-			
-			snake.setDirection(direction);
+			if ((direction = snakeBindings.get(key)) != null)
+				snake.setDirection(direction);
 		}
+		
+		public Listener(Map<Integer,Direction> snakeBindings) {
+			this.snakeBindings = snakeBindings;
+		}
+		
 		
 	}
 }
