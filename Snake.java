@@ -38,8 +38,10 @@ class Snake extends Entity {
 		
 		if (isAlive) {
 			cellsQueue.addLast(newHead);
-			if (isHungry)
+			if (isHungry) {
 				cellsQueue.removeFirst();
+				((Matrix.AnimatedCell) cellsQueue.peekFirst()).startShrinking();
+			}
 		}
 	}
 	
@@ -51,7 +53,7 @@ class Snake extends Entity {
 		isAlive = false;
 	}
 		
-	public Snake( SnakeGame game, int x, int y, int length, Direction direction) { // refactor !!! 
+	public Snake( Room game, int x, int y, int length, Direction direction) { // refactor !!! 
 		super(game, new LinkedList<Matrix.Cell>());
 		cellsQueue = (LinkedList<Matrix.Cell>) getCells();
 		setColor(DEFAULT_COLOR);
@@ -59,7 +61,7 @@ class Snake extends Entity {
 		setDirection(direction);
 		isAlive = true;
 		
-		cellsQueue.add( getGame().getMatrix().new Cell(x,y) );
+		cellsQueue.add( getGame().getMatrix().new AnimatedCell(x,y,direction));
 		for (int i = 1; i < length; i++)
 			cellsQueue.addLast(cellsQueue.peekLast().neighbour(direction));
 		
