@@ -31,7 +31,7 @@ enum Direction {
 class Room {
 	
 	public static final String VERSION = "2.1";
-	public static final int FPS = 1000;
+	public static final int FPS = 100;
 	public static final int TICK = 100;
 	
 	private Matrix matrix;	 

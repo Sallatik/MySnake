@@ -10,9 +10,9 @@ public abstract class Entity {
 	
 	private Collection<Matrix.Cell> cells;
 		
-	private SnakeGame game;
+	private Room game;
 	
-	public SnakeGame getGame(){
+	public Room getGame(){
 		return game;
 	}
 	
@@ -30,7 +30,7 @@ public abstract class Entity {
 			cell.paint(g);
 	}
 	
-	public Entity(SnakeGame game, Collection<Matrix.Cell> cells) {
+	public Entity(Room game, Collection<Matrix.Cell> cells) {
 		this.cells = cells;
 		this.game = game;
 		game.getEntities().add(this);

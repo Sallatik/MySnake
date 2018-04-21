@@ -34,7 +34,7 @@ public class Food extends Entity {
 		respawn(); 
 	}
 	
-	public Food(SnakeGame game) {
+	public Food(Room game) {
 		super(game,new ArrayList<Matrix.Cell>());
 		setColor(DEFAULT_COLOR);
 		Matrix.Cell newPlace = randomPlace();
