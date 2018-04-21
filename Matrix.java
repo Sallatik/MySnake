@@ -160,8 +160,10 @@ class Matrix extends JPanel{
 	public class AnimatedCell extends Cell{
 
 			private Direction direction;
+			private Direction shrinkDirection;
 			private long startTime;
 			private boolean isShrinking;
+
 
 			public AnimatedCell(int x,int y,Direction direction){
 				super(x,y);
@@ -174,6 +176,7 @@ class Matrix extends JPanel{
 			}
 			@Override
 			public Cell neighbour(Direction direction){
+				this.shrinkDirection = direction;
 				return new AnimatedCell(super.neighbour(direction),direction);
 			}
 
@@ -210,6 +213,7 @@ class Matrix extends JPanel{
 			public void startShrinking(){
 				isShrinking = true;
 				startTime = System.currentTimeMillis();
+				direction = shrinkDirection;
 			}
 	}
 }
