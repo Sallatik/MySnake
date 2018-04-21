@@ -15,8 +15,8 @@ class Matrix extends JPanel{
 	
 	private int cellWidth;
 	private int cellHeight;
-	private int millisPerPixelHorizontal; // for animated cells
-	private int millisPerPixelVertical; // for animated cells
+	private double millisPerPixelHorizontal; // for animated cells
+	private double millisPerPixelVertical; // for animated cells
 
 	private Color background;
 	private Color color;
@@ -54,10 +54,10 @@ class Matrix extends JPanel{
 		color = COLOR_DEFAULT;
 
 		// DEBUG !!! To be deleted.
-		//this.setLayout(new BorderLayout());
-		//label = new JLabel("DEBUG: ");
-		//this.add(label,BorderLayout.NORTH);
-		
+		/*this.setLayout(new BorderLayout());
+		label = new JLabel("DEBUG: ");
+		this.add(label,BorderLayout.NORTH); */
+
 	}
 
 	public void paintComponent ( Graphics g ) {
@@ -68,8 +68,8 @@ class Matrix extends JPanel{
 		cellWidth = width / this.numOfColumns;
 		cellHeight = height / this.numOfRows;
 
-		millisPerPixelHorizontal = game.TICK / cellWidth;
-		millisPerPixelVertical = game.TICK / cellHeight;
+		millisPerPixelHorizontal = (double)game.TICK / (double)cellWidth;
+		millisPerPixelVertical = (double)game.TICK / (double)cellHeight;
 
 		g.setColor(background);
 		g.fillRect(0, 0, width, height);	// filling the background
@@ -186,12 +186,12 @@ class Matrix extends JPanel{
 				int height = cellHeight;
 
 				int timePassed = (int) (System.currentTimeMillis() - startTime);
-				timePassed = timePassed>game.TICK? game.TICK : timePassed;
+				timePassed = timePassed > game.TICK? game.TICK : timePassed;
 
 				if(direction.isVertical())
-					height = isShrinking? cellHeight - timePassed / millisPerPixelVertical : timePassed / millisPerPixelVertical;
+					height = (int) (isShrinking? cellHeight - timePassed / millisPerPixelVertical : timePassed / millisPerPixelVertical);
 				else
-					width = isShrinking? cellWidth - timePassed / millisPerPixelHorizontal : timePassed / millisPerPixelHorizontal;
+					width = (int) (isShrinking? cellWidth - timePassed / millisPerPixelHorizontal : timePassed / millisPerPixelHorizontal);
 				if(isShrinking){
 					if(direction == Direction.SOUTH)
 						upperLeftY +=cellHeight - height;
