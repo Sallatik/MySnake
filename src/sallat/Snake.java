@@ -1,3 +1,5 @@
+package sallat;
+
 import java.awt.*;
 import java.util.*;
 class Snake extends Entity {

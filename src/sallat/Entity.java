@@ -1,3 +1,5 @@
+package sallat;
+
 import java.util.*;
 import java.awt.*;
 public abstract class Entity {

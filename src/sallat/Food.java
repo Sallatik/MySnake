@@ -1,3 +1,5 @@
+package sallat;
+
 import java.awt.Color;
 import java.util.*;
 public class Food extends Entity {
