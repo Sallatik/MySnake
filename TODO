@@ -1,0 +1,3 @@
+ConcurrentModificationException is caused by using non thread safe LinkedList
+as Cells collection. Should be replaced by ConcurrentLinkedQueue or ConcurrentLinkedDeque.
+All unique LinkedList's methods used in Snake class should be replaced.
