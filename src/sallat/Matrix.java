@@ -65,11 +65,11 @@ class 	Matrix extends JPanel{
 		int width = getWidth();
 		int height = getHeight();
 		
-		cellWidth = width / this.numOfColumns;
-		cellHeight = height / this.numOfRows;
+		cellWidth = width / numOfColumns;
+		cellHeight = height / numOfRows;
 
-		millisPerPixelHorizontal = (double)game.TICK / (double)cellWidth;
-		millisPerPixelVertical = (double)game.TICK / (double)cellHeight;
+		millisPerPixelHorizontal = (double)game.TICK / cellWidth;
+		millisPerPixelVertical = (double)game.TICK / cellHeight;
 
 		g.setColor(background);
 		g.fillRect(0, 0, width, height);	// filling the background

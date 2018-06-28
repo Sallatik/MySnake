@@ -1,7 +1,7 @@
 package sallat;
 
 import java.awt.*;
-import java.util.*;
+import java.util.concurrent.*;
 class Snake extends Entity {
 	
 	public static final Color DEFAULT_COLOR = Color.red;
@@ -9,7 +9,7 @@ class Snake extends Entity {
 	private boolean isAlive;
 	private Direction direction;
 	private Direction directionBuff;
-	private LinkedList<Matrix.Cell> cellsQueue;
+	private ConcurrentLinkedDeque<Matrix.Cell> cellsQueue;
 	
 	public boolean getIsAlive() {
 		return isAlive;
@@ -56,8 +56,8 @@ class Snake extends Entity {
 	}
 		
 	public Snake( Room game, int x, int y, int length, Direction direction) { // refactor !!! 
-		super(game, new LinkedList<Matrix.Cell>());
-		cellsQueue = (LinkedList<Matrix.Cell>) getCells();
+		super(game, new ConcurrentLinkedDeque<>());
+		cellsQueue = (ConcurrentLinkedDeque<Matrix.Cell>) getCells();
 		setColor(DEFAULT_COLOR);
 		
 		setDirection(direction);
