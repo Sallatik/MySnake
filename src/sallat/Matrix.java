@@ -18,9 +18,6 @@ class 	Matrix extends JPanel{
 	private double millisPerPixelHorizontal; // for animated cells
 	private double millisPerPixelVertical; // for animated cells
 
-	private Color background;
-	private Color color;
-
 	//DEBUG !!! To be deleted.
 	//JLabel label;
 
@@ -30,14 +27,6 @@ class 	Matrix extends JPanel{
 
 	public int getNumOfColumns() { // rename or delete !!!
 		return numOfColumns;
-	}
-
-	public void setBackground(Color background) {
-		this.background = background;
-	}
-	
-	public void setColor(Color color) {
-		this.color = color;
 	}
 					// setters (no getters yet)
 
@@ -50,13 +39,8 @@ class 	Matrix extends JPanel{
 		cellWidth = 10;
 		cellHeight = 10;
 
-		background = BACKGROUND_DEFAULT;
-		color = COLOR_DEFAULT;
-
-		// DEBUG !!! To be deleted.
-		/*this.setLayout(new BorderLayout());
-		label = new JLabel("DEBUG: ");
-		this.add(label,BorderLayout.NORTH); */
+		setForeground(COLOR_DEFAULT);
+		setBackground(BACKGROUND_DEFAULT);
 
 	}
 
@@ -71,16 +55,11 @@ class 	Matrix extends JPanel{
 		millisPerPixelHorizontal = (double)game.TICK / cellWidth;
 		millisPerPixelVertical = (double)game.TICK / cellHeight;
 
-		g.setColor(background);
-		g.fillRect(0, 0, width, height);	// filling the background
-		
-		g.setColor(color);
+		g.clearRect(0, 0, width, height);	// filling the background
+
 		for (Entity entity : game.getEntities()) {	// printing all the entities
 			entity.paint(g);
 		}
-
-		//DEBUG!!! To be deleted.
-		//label.setText("Height:" + getHeight() + "	Width:" + getWidth() + "	CellHeight: " + cellHeight + "	CellWidth:" + cellWidth + "	millisPerPixelHorizontal:" + millisPerPixelHorizontal + "	millisPerPixelVertical: "+ millisPerPixelVertical);
 	}
 	
 	public class Cell {

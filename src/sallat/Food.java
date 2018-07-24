@@ -37,7 +37,7 @@ public class Food extends Entity {
 	}
 	
 	public Food(Room game) {
-		super(game,new ArrayList<Matrix.Cell>());
+		super(game,new ArrayList<>());
 		setColor(DEFAULT_COLOR);
 		Matrix.Cell newPlace = randomPlace();
 		getCells().add(newPlace);
